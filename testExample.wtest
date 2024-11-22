@@ -1,9 +1,35 @@
-import example.pepita
+import intensamente.*
 
-describe "group of tests for pepita" {
+describe "PRUEBA (ITEM 6)" {
+  //PERSONAS//
+  const riley = new Persona(intensidad = 50, edad = 13)
+  const papaDeRiley = new Persona(intensidad = 70, edad = 41)
+  const mamaDeRiley = new Persona(intensidad = 90, edad = 40)
+  
+  //GRUPOS//
+  const familiaAndersen = new Grupo()
 
-  test "pepita has initial energy" {
-    assert.equals(100, pepita.energy())
+  //EVENTOS//
+  const mudanza = new Evento(impacto = 50, descripcionEvento = "Mudanza a San Francisco")
+
+  //EMOCIONES//
+  const tristezaRiley = new Tristeza(intensidad = 120)
+  
+  method initialize() {
+    tristezaRiley.cambiarCausa("Empacar")
+
+    riley.nuevaEmocion(tristezaRiley)
+    mamaDeRiley.nuevaEmocion(new Furia(palabrotas = ["Idiota"])) //PUEDE SER MUCHO PEOR//
+    mamaDeRiley.nuevaEmocion(new Ansiedad(tazasDeTe = 60))
+    papaDeRiley.nuevaEmocion(new Alegria(intensidad = 50))
+
+    familiaAndersen.agregarPersona(riley)
+    familiaAndersen.agregarPersona(papaDeRiley)
+    familiaAndersen.agregarPersona(mamaDeRiley)
   }
 
+  test "Los Andersen se mudan a San Francisco. Riley... no lo toma muy bien que digamos" {
+    mudanza.vivirEvento(familiaAndersen)
+    assert.that(tristezaRiley.causa() == mudanza.descripcionEvento())
+  }
 }
